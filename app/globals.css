@@ -1,26 +1,320 @@
 @import "tailwindcss";
 
+/* =========================================================
+   Toolvya Design Tokens
+   (ported 1:1 from the Toolvya design canvas)
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --tv-bg: #ffffff;
+  --tv-surface: #ffffff;
+  --tv-surface-2: #f4f8f8;
+  --tv-surface-3: #e9f0f0;
+
+  --tv-text: #0f1e1f;
+  --tv-text-strong: #0f1e1f;
+  --tv-muted: #556768;
+  --tv-muted-light: #7c8c8d;
+  --tv-placeholder: #7c8c8d;
+
+  --tv-border: #dbe4e4;
+  --tv-border-subtle: #eaf0f0;
+  --tv-border-strong: #c2cfd0;
+
+  --tv-primary: #0b7c7e;
+  --tv-primary-hover: #086365;
+  --tv-primary-active: #086365;
+  --tv-on-primary: #ffffff;
+  --tv-primary-container: #dff0f0;
+
+  --tv-secondary: #1e3a46;
+  --tv-accent: #a2601d;
+
+  --tv-link: #0b7c7e;
+  --tv-link-hover: #086365;
+  --tv-focus: #0b7c7e;
+  --tv-focus-ring: rgba(11, 124, 126, 0.25);
+
+  --tv-success: #1b7f4b;
+  --tv-warning: #8c5a00;
+  --tv-danger: #b3261e;
+  --tv-danger-container: #fdecea;
+  --tv-info: #0284c7;
+
+  --tv-shadow-sm: 0 1px 2px rgba(15, 30, 31, 0.05);
+  --tv-shadow-md: 0 2px 8px rgba(15, 30, 31, 0.09);
+  --tv-shadow-lg: 0 12px 32px rgba(15, 30, 31, 0.14);
+
+  --tv-radius-sm: 6px;
+  --tv-radius-md: 8px;
+  --tv-radius-lg: 10px;
+  --tv-radius-xl: 12px;
+
+  --tv-transition-fast: 150ms ease;
+  --tv-transition: 200ms ease;
+  --tv-transition-slow: 300ms ease;
+
+  --tv-font-sans: var(--font-public-sans), -apple-system, "Segoe UI", Helvetica, sans-serif;
+  --tv-font-display: var(--font-instrument-sans), var(--font-public-sans), Helvetica, sans-serif;
+
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root[data-theme="dark"] {
+  --tv-bg: #0d1414;
+  --tv-surface: #141c1c;
+  --tv-surface-2: #1a2223;
+  --tv-surface-3: #212b2b;
+
+  --tv-text: #e5eded;
+  --tv-text-strong: #e5eded;
+  --tv-muted: #98a7a8;
+  --tv-muted-light: #7c8c8d;
+  --tv-placeholder: #7c8c8d;
+
+  --tv-border: #2a3435;
+  --tv-border-subtle: #202a2a;
+  --tv-border-strong: #3c4849;
+
+  --tv-primary: #43c1c3;
+  --tv-primary-hover: #5fd2d3;
+  --tv-primary-active: #5fd2d3;
+  --tv-on-primary: #04201f;
+  --tv-primary-container: #0f3334;
+
+  --tv-secondary: #a1bfc9;
+  --tv-accent: #dda265;
+
+  --tv-link: #43c1c3;
+  --tv-link-hover: #5fd2d3;
+  --tv-focus: #43c1c3;
+  --tv-focus-ring: rgba(67, 193, 195, 0.25);
+
+  --tv-success: #4ec98a;
+  --tv-warning: #e0b25e;
+  --tv-danger: #f2b8b5;
+  --tv-danger-container: #2a1a19;
+  --tv-info: #5fc4f2;
+
+  --tv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --tv-shadow-md: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --tv-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --tv-bg: #0d1414;
+    --tv-surface: #141c1c;
+    --tv-surface-2: #1a2223;
+    --tv-surface-3: #212b2b;
+
+    --tv-text: #e5eded;
+    --tv-text-strong: #e5eded;
+    --tv-muted: #98a7a8;
+    --tv-muted-light: #7c8c8d;
+    --tv-placeholder: #7c8c8d;
+
+    --tv-border: #2a3435;
+    --tv-border-subtle: #202a2a;
+    --tv-border-strong: #3c4849;
+
+    --tv-primary: #43c1c3;
+    --tv-primary-hover: #5fd2d3;
+    --tv-primary-active: #5fd2d3;
+    --tv-on-primary: #04201f;
+    --tv-primary-container: #0f3334;
+
+    --tv-secondary: #a1bfc9;
+    --tv-accent: #dda265;
+
+    --tv-link: #43c1c3;
+    --tv-link-hover: #5fd2d3;
+    --tv-focus: #43c1c3;
+    --tv-focus-ring: rgba(67, 193, 195, 0.25);
+
+    --tv-success: #4ec98a;
+    --tv-warning: #e0b25e;
+    --tv-danger: #f2b8b5;
+    --tv-danger-container: #2a1a19;
+    --tv-info: #5fc4f2;
+
+    --tv-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --tv-shadow-md: 0 2px 10px rgba(0, 0, 0, 0.4);
+    --tv-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================================================
+   Tailwind theme mapping — real utilities for the tv-* tokens
+   (bg-surface, text-muted, rounded-tv-md, shadow-tv-md, ...)
+   ========================================================= */
+
+@theme inline {
+  --color-primary: var(--tv-primary);
+  --color-primary-hover: var(--tv-primary-hover);
+  --color-primary-active: var(--tv-primary-active);
+  --color-accent: var(--tv-accent);
+  --color-secondary: var(--tv-secondary);
+  --color-on-primary: var(--tv-on-primary);
+  --color-primary-container: var(--tv-primary-container);
+
+  --color-bg: var(--tv-bg);
+  --color-surface: var(--tv-surface);
+  --color-surface-elevated: var(--tv-surface);
+  --color-surface-alt: var(--tv-surface-2);
+  --color-surface-2: var(--tv-surface-2);
+  --color-surface-3: var(--tv-surface-3);
+  --color-surface-brand: var(--tv-primary-container);
+
+  --color-text: var(--tv-text);
+  --color-text-strong: var(--tv-text-strong);
+  --color-muted: var(--tv-muted);
+  --color-muted-light: var(--tv-muted-light);
+  --color-placeholder: var(--tv-placeholder);
+
+  --color-border: var(--tv-border);
+  --color-border-subtle: var(--tv-border-subtle);
+  --color-border-strong: var(--tv-border-strong);
+  --color-border-brand: var(--tv-border-brand);
+
+  --color-link: var(--tv-link);
+  --color-link-hover: var(--tv-link-hover);
+  --color-focus: var(--tv-focus);
+
+  --color-success: var(--tv-success);
+  --color-warning: var(--tv-warning);
+  --color-danger: var(--tv-danger);
+  --color-danger-container: var(--tv-danger-container);
+  --color-info: var(--tv-info);
+
+  --radius-tv-sm: var(--tv-radius-sm);
+  --radius-tv-md: var(--tv-radius-md);
+  --radius-tv-lg: var(--tv-radius-lg);
+  --radius-tv-xl: var(--tv-radius-xl);
+
+  --shadow-tv-sm: var(--tv-shadow-sm);
+  --shadow-tv-md: var(--tv-shadow-md);
+  --shadow-tv-lg: var(--tv-shadow-lg);
+
+  --font-sans: var(--tv-font-sans);
+  --font-display: var(--tv-font-display);
+}
+
+/* =========================================================
+   Global Base
+   (wrapped in Tailwind's `base` layer so utility classes like
+   text-on-primary can still override these — an unlayered rule
+   would otherwise always beat a layered one, regardless of
+   specificity, and silently win over utilities like text-on-primary)
+   ========================================================= */
+
+@layer base {
+  html,
+  body {
+    background: var(--tv-bg);
+    color: var(--tv-text);
+    font-family: var(--tv-font-sans);
+    transition: background-color var(--tv-transition), color var(--tv-transition);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--tv-font-display);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  ::selection {
+    background: var(--tv-focus-ring);
+    color: var(--tv-text-strong);
+  }
+
+  a {
+    color: var(--tv-link);
+    transition: color var(--tv-transition-fast);
+  }
+
+  a:hover {
+    color: var(--tv-link-hover);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--tv-focus);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--tv-border-strong);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--tv-muted);
+  }
+}
+
+/* =========================================================
+   Material Symbols (icon font) + misc keyframes
+   ========================================================= */
+
+.ms {
+  font-family: "Material Symbols Rounded";
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes tv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tv-spin {
+  animation: tv-spin 1s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+  .tv-spin {
+    animation: none !important;
+  }
 }
